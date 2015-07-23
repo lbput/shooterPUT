@@ -1,4 +1,3 @@
 
 # Academic Project - Shooter
-# Django/Python3
-# 2014
+Django/Python3 ; 2014
