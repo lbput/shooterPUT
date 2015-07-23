@@ -1,0 +1,35 @@
+﻿{% extends 'base.html' %}
+
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Mój profil" "userprofile.views.Profile" %}
+    {% breadcrumb "Zmiana adresu e-mail" "" %}
+    {% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap3.html" %}
+{% endblock %}
+
+{% block center %}
+	{% include 'sidebar.html' %}
+
+<div class="col-sm-9">
+    <h3 class="page-header">Zmiana adresu e-mail</h3>
+    <div class="col-xs-6">
+        <form class="form-horizontal" role="form" action="/account/change-email/" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group {% if field.errors %}has-error{% endif %}">
+                <label class="control-label">{{ field.label_tag }}</label>{% if field.errors %}{{ field.errors.as_text }}
+                {% else %}{% if field.field.required %}*{% endif %}{% endif %}
+                {{field}}
+            </div>
+            {% endfor %}
+            <br />
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-6">
+                    <button type="submit" class="btn btn-success btn-block">Zapisz</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

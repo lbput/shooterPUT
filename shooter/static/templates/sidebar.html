@@ -1,0 +1,13 @@
+﻿<!-- SideBar -->
+<div class="col-sm-3 hidden-xs">
+    <div class="list-group">
+        <a href="{% url "articles" %}" class="list-group-item">Wiadomości</a>
+        <a href="{% url "contact_form" %}" class="list-group-item">Kontakt</a>
+        <a href="{% url "aboutus" %}" class="list-group-item">O nas</a>
+        <a href="{% url 'tournament:tournament_option' %}" class="list-group-item">Zawody</a>
+{% if user.is_authenticated %}<a href="/account/profile/" class="list-group-item">Profil</a>{% endif %}
+{% if user.is_authenticated and user.is_admin %}<a href="/admin/" class="list-group-item">Panel admina</a>{% endif %}
+        <a href="#" class="list-group-item">Kursy</a>
+    </div>
+</div>
+<!-- End of SideBar -->

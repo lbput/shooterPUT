@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block center %}
+    <h2>Zapisy na zawody</h2><br/>
+
+
+    <div>
+        {% for field in form %}
+            <td>{{ field.label }}</td>
+            <td style="width:100px">{{ field }}</td>
+
+		{% endfor %}
+
+    </div>
+    <br/>
+    <p><a href="#" class="btn btn-primary" id="show_results">Wyświetl wyniki</a></p>
+    <div id="res_t">
+
+    </div>
+    <div id="results_table">
+
+    </div>
+
+
+{% endblock %}

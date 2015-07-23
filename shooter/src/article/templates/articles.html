@@ -1,0 +1,50 @@
+﻿{% extends 'base.html' %}
+
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Wiadomości" "article.views.articles" %}
+    {% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap3.html" %}
+{% endblock %}
+
+{% block center %}
+	{% include 'sidebar.html' %}
+<!-- articles -->
+<div class="col-sm-9">
+    <h3 class="page-header">Wiadomości</h3>
+    {% if articles.object_list.count > 0 %}
+    <div class="row">
+    {% for article in articles.object_list %}
+        <div class="col-sm-6">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3><a href ="/articles/get/{{ article.id }}">{{ article.title }}</a>{% if article.pub_date.date == today.date %} <span class="label label-warning">NEW</span>{% endif %}</h3>
+                    {{ article.body|truncatechars:80 }}
+                    <br><br>
+                    <a href ="/articles/get/{{ article.id }}" >Więcej &raquo;</a>
+                    <hr>
+                    <p class="pull-left">{{ article.pub_date.date }}</p>
+                    <a href="/articles/get/{{ article.id }}#comments" class="btn btn-primary btn-xs pull-right">Komentarze <span class="badge">{{ article.comment_count }}</span></a>
+                    <br>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    {% else %}
+    <p><b>Brak artykułów do wyświetlenia.</b></p>
+    {% endif %}
+
+    {% if articles.object_list and articles.paginator.num_pages > 1 %}
+        <ul class="pager">
+        {% if articles.has_previous %}
+            <li class="previous"><a href="?page={{ articles.previous_page_number }}">&larr; Nowsze</a></li>
+        {% endif %}
+        {% if articles.has_next %}
+            <li class="next"><a href="?page={{ articles.next_page_number }}">Starsze &rarr;</a></li>
+        {% endif %}
+        </ul>
+    {% endif %}
+</div>
+<!-- end of articles -->
+{% endblock %}

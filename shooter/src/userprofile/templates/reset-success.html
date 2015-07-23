@@ -1,0 +1,15 @@
+﻿{% extends 'base.html' %}
+
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+	{{ block.super }}
+    {% breadcrumb "Pomyślne zresetowanie hasła" "userprofile.views.RegisterSuccess" %}
+    {% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap3.html" %}
+{% endblock %}
+
+{% block center %}
+<div class="col-sm-offset-2 col-sm-8">
+	<h3 class="page-header">Proces resetowania hasła został ukończony pomyślnie!</h3>
+	<p>Na podany adres e-mail zostało wysłane nowe hasło. Przejdź na stronę <a href="/account/login/">logowania</a>.</p>
+ </div>
+{% endblock %}

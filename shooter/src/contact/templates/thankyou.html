@@ -1,0 +1,18 @@
+﻿{% extends 'base.html' %}
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+	{{ block.super }}
+    {% breadcrumb "Kontakt" "contact.views.contact_form" %}
+    {% breadcrumb "dzięki za wiadomość" "contact.views.thank_you" %}
+    {% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap3.html" %}
+{% endblock %}
+
+
+{% block center %}
+<div class="col-sm-offset-2 col-sm-8">
+	<h2 class="page-header">Dziękujemy</h2>
+	<p>Dziękujemy za wiadomość. Prosimy czekać na odpowiedź.</p>
+</div>
+{% endblock %}

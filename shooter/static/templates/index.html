@@ -1,0 +1,36 @@
+﻿{% extends 'base.html' %}
+
+
+
+
+{% block center %}
+{% include 'sidebar.html' %}
+<div class="col-sm-9">
+    {% if articles.count > 0 %}
+    <div class="row">
+    <!-- articles -->
+    {% for article in articles %}
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3><a href ="/articles/get/{{ article.id }}">{{ article.title }}</a>{% if article.pub_date.date == today.date %} <span class="label label-success">Nowy!</span>{% endif %}</h3>
+                    {{ article.body|truncatewords:"8" }}
+                    <br><a href ="/articles/get/{{ article.id }}" >Więcej &raquo;</a>
+                    <hr>
+                    <p class="pull-left">{{ article.pub_date.date }}</p>
+                    <a href="/articles/get/{{ article.id }}#comments" 
+                        class="btn btn-default btn-xs pull-right">Komentarze 
+                        <span class="badge">{{ article.comment_count }}</span></a>
+                    <br>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <!-- end of articles -->
+    </div>
+    {% else %}
+    <p align="center"><b>Brak artykułów.</b></p>
+    {% endif %}
+</div>
+
+{% endblock %} 

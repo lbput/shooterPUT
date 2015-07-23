@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block center %}
+
+    <br><br>
+    <ul id="actions" class="list-inline">
+        <li><a class="btn btn-primary btn-xs" href="{% url 'tournament:tournament_signup' %}">Zapis na zawody</a></li>
+        <li><a class="btn btn-primary btn-xs" href="{% url 'tournament:tournament_results' %}">Wyniki</a></li>  
+    </ul>
+
+    <br/>
+    <div id="results_table">
+
+    </div>
+{% endblock %}
+
+{% block right %}{% endblock %}

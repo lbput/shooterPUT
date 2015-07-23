@@ -1,0 +1,31 @@
+﻿{% extends 'base.html' %}
+
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Mój profil" "userprofile.views.Profile" %}
+    {% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap3.html" %}
+{% endblock %}
+
+{% block center %}
+	{% include 'sidebar.html' %}
+
+<div class="col-sm-9">
+    <h3 class="page-header">Profil</h3>
+    <div class="row">
+        <div class="col-xs-12">
+            <p>Login: {{ shooter.username }}</p>
+            <p>Ostatnia wizyta: {{ shooter.last_login }}</p>
+            <p>Imię: {{shooter.personid.firstname}}</p>
+            <p>Nazwisko: {{shooter.personid.lastname}}</p>
+            <p>Adres: {{shooter.personid.address}}</p>
+            <p>Miasto: {{shooter.personid.city}}</p>
+            <p>Adres email: {{shooter.personid.email}}</p>
+            <p>PESEL: {{shooter.personid.pesel}}</p>
+            <p>Czas: {{ now }}</p>
+        </div>
+<a href="/account/change-password/" class="btn btn-primary">Zmień hasło</a>
+<a href="/account/change-email/" class="btn btn-primary">Zmień e-mail</a>
+    </div>
+</div>
+{% endblock %}

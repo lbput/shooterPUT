@@ -1,0 +1,39 @@
+
+<div class="container">
+<div class="row"> 
+      <div class="col-xs-12">
+
+	{% if articles.count > 0 %}
+
+	{% for article in articles %}
+	<div>
+	<h2><a href ="/articles/get/{{ article.id }}">{{ article.title }}</a> </h2>
+	<ul class="list-inline">
+	    <li>{{ article.pub_date }}</li>
+
+	    <li><a href="#"><i class="glyphicon glyphicon-comment"></i> {{ article.comment_count }}
+		{% if article.comment_count == 1 %}
+			Comment
+  		{% else %}
+    			Comments
+  		{% endif %}
+		</a></li>
+
+	</ul>
+	    <p>{{ article.body|lower|truncatewords:"5" }} </p>
+        
+            <p class="lead"><a href ="/articles/get/{{ article.id }}" class="btn btn-default">Read More</a></p>
+
+        
+	</div>
+	{% endfor %}
+
+	{% else %}
+
+	<p><b>None to show</b></p>
+
+	{% endif %}
+
+      </div>
+ </div> 
+</div><!-- /.container --> 

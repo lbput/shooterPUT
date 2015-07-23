@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block center %}
+    <h2>Zapisy na zawody</h2><br/>
+
+
+    <div>
+        {% for field in form %}
+            <td>{{ field.label }}</td>
+            <td style="width:100px">{{ field }}</td>
+
+		{% endfor %}
+
+    </div>
+    <br/>
+    <p><a href="#" class="btn btn-primary" id="tournament_signup">Zapis_ajax</a></p>
+    <div id="res_t">
+
+    </div>
+
+    <div id="txtAge" style="display:none">kod do testów z checkboxem</div>
+
+<div class="modal fade" id="bk" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Informacja</h4>
+      </div>
+      <div class="modal-body">
+        "Ok, zostales zapisany."
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,30 @@
+﻿{% extends 'base.html' %}
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+	{{ block.super }}
+    {% breadcrumb "Kontakt" "contact.views.contact_form" %}
+    {% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap3.html" %}
+{% endblock %}
+
+{% block center %}
+<div class="col-sm-8  center-block">
+    <h2 class="page-header">Formularz kontaktowy</h2>
+    <form class="form-horizontal" action="{% url 'contact_form' %}" method="post" role="form">
+        {% csrf_token %}{{ form.non_field_errors }}
+        {% for field in form %}
+        <div class="form-group {% if field.errors %}has-error{% endif %}">
+            <label class="col-sm-3 control-label" title="{{ field.errors.as_text }}">{{ field.label_tag }}{% if field.field.required %}*{% endif %}</label>
+            <div class="col-sm-9">{{field}}</div>
+        </div>
+        {% endfor %}
+		<br />
+		<div class="form-group">
+            <div class="col-sm-offset-4 col-sm-4">
+                <button type="submit" class="btn btn-success btn-lg btn-block">Wyślij</button>
+            </div>
+        </div>
+	</form>
+</div>
+{% endblock %}

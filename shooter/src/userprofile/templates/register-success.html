@@ -1,0 +1,15 @@
+﻿{% extends 'base.html' %}
+
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+	{{ block.super }}
+    {% breadcrumb "Pomyślna rejestracja" "userprofile.views.RegisterSuccess" %}
+    {% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap3.html" %}
+{% endblock %}
+
+{% block center %}
+<div class="col-sm-offset-2 col-sm-8">
+	<h2 class="page-header">Proces rejestracji został ukończony pomyślnie!</h2>
+	<p>Kliknij <a href="/account/login/">tutaj</a> aby się zalogować.</p>
+ </div>
+{% endblock %}

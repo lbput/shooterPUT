@@ -1,0 +1,76 @@
+﻿{% extends 'base.html' %}
+
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Wiadomości" "article.views.articles" %}
+    {% breadcrumb article.title "article.views.article" %}
+    {% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap3.html" %}
+{% endblock %}
+
+{% block center %}
+<!-- article -->
+{% include 'sidebar.html' %}
+<div class="col-sm-9">
+    <h2 class="page-header">{{ article.title }} <small class="pull-right">{{ article.pub_date.date }}</small></h2>
+    <p>{{ article.body|linebreaks }}</p>
+    <br><br>
+    <a name="comments"></a>
+    <a href="/articles/like/{{ article.id }}" class="btn btn-primary btn-xs">Lubię to  <span class="badge">{{article.likes}}</span></a>
+    <br><br>
+
+    <div class="row">
+        <div class="col-xs-12 center-block">
+            <div class="panel panel-default widget">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Komentarze</h3>
+                    <span class="label label-default">{{article.comment_set.count}}</span>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                    {% if article.comment_set.count > 0 %}
+                        {% for c in article.comment_set.all %}
+                        <li class="list-group-item">
+                            <div class="mic-info">Autor: {{c.first_name}} 
+                                <span class="pull-right">Opublikowano: {{c.pub_date|timesince}} temu</span><hr>
+                            </div>
+                            <div class="comment-text">{{c.body}}</div>
+                            {% if user.is_authenticated and user.is_admin %}
+                            <a class="btn btn-danger btn-xs pull-right" title="Usuń" 
+                                href="/articles/delete_comment/{{c.id}}">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+                            <br/>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item">
+                            <p align="center">Brak komentarzy.</p>
+                        </li>
+                    {% endif %}
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <a name="add_comment"></a>
+                    <div class="col-xs-12 center-block">
+                        <form class="form-horizontal" role="form" method="post" action="/articles/add_comment/{{article.id}}/">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="form-group {% if field.errors %}has-error{% endif %}">
+                                {{field}}
+                                {% if field.errors %}<p class="help-block">{{ field.errors.as_text }}</p>{% endif %}
+                            </div>
+                        {% endfor %}
+                            <div class="col-xs-4 center-block">
+                                <button type="submit" class="btn btn-primary btn-block btn-xs">Wyślij</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end of article -->
+{% endblock %}
